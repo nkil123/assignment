@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/f001449fdc.js" crossorigin="anonymous"></script>
+    <title>Search1</title>
+    <style>
+        #bar {
+            margin: auto;
+            width: 90%;
+        }
+        
+        #mName,
+        #sbtn {
+            width: 90%;
+            padding: 30px;
+        }
+        
+        #sbtn {
+            background-color: red;
+            color: white;
+            font-size: 30px;
+        }
+        
+        #main {
+            /* display: grid;
+            grid-template-columns: auto auto auto; */
+            justify-content: center;
+            margin: auto;
+            /* background-color: red; */
+        }
+        
+        #main>div {
+            width: 50%;
+            /* background-color: red; */
+            justify-content: center;
+            margin: auto;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bar">
+        <input type="search" name="" id="mName">
+        <button onclick="find()" id="sbtn">Search</button>
+    </div>
+    <div id="main">
+
+
+    </div>
+
+
+</body>
+
+</html>
+
+<script>
+    var m = document.getElementById("main")
+
+
+
+    function find() {
+        var input = document.getElementById("mName").value;
+        fetch("https://www.omdbapi.com/?apikey=29c143d5&t=iron%20man&s=iron%20man")
+
+        .then((res) => {
+                return res.json()
+            })
+            .then((res) => {
+                console.log(res.Search)
+                check(res.Search)
+
+            })
+
+        function check(tt) {
+            var result = true;
+            // console.log(input)
+            tt.forEach(element => {
+
+
+
+
+                if (element.Title == input) {
+                    // console.loe(element)
+                    m.innerHTML = null;
+                    let img = document.createElement("img")
+                    img.src = element.Poster;
+
+                    let title_m = document.createElement("p")
+                    title_m.innerHTML = element.Title;
+
+                    // let imdb = document.createElement("p")
+                    // imdb.innerHTML = element.imdbRating;
+
+                    let release = document.createElement("p")
+                    release.innerHTML = element.Year;
+
+                    let genre = document.createElement("p")
+                    genre.innerHTML = element.Type;
+
+                    // let boxoffice = document.createElement("p")
+                    // boxoffice.innerHTML = element.BoxOffice;
+
+                    let c = document.createElement("div")
+                    c.append(img, title_m, release, genre)
+                    m.append(c)
+                    result = false;
+                }
+
+
+
+            })
+
+            if (result) {
+                m.innerHTML = null;
+
+                let c = document.createElement("div")
+
+
+
+                // let i = document.createElement("i")
+                // i.className = "fas fa-search"
+                let im = document.createElement("img")
+                im.src = "https://m.filmfare.com/static/img/filmfare_pwa_404_page.jpg"
+                c.append(im)
+                m.append(c)
+            }
+
+
+
+
+        }
+    }
+</script>
