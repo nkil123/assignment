@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/f001449fdc.js" crossorigin="anonymous"></script>
+    <title>Search1</title>
+    <style>
+        #bar {
+            margin: auto;
+            width: 90%;
+        }
+        
+        #mName,
+        #sbtn {
+            width: 90%;
+            padding: 30px;
+        }
+        
+        #sbtn {
+            background-color: red;
+            color: white;
+            font-size: 30px;
+        }
+        
+        #main {
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px auto auto auto;
+            /* background-color: red; */
+        }
+        
+        #main>div {
+            /* width: 50%; */
+            /* background-color: red; */
+            justify-content: center;
+            margin: auto;
+            align-items: center;
+            text-align: center;
+            font-size: 30px;
+        }
+        
+        #main img {
+            width: 100%;
+        }
+        
+        #main #recomm {
+            background-color: green;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bar">
+        <input type="search" name="" id="mName">
+        <button onclick="find()" id="sbtn">Search</button>
+    </div>
+    <div id="main">
+
+
+    </div>
+
+
+</body>
+
+</html>
+
+<script>
+    var m = document.getElementById("main")
+
+
+
+    function find() {
+        var input = document.getElementById("mName").value;
+        fetch(`https://www.omdbapi.com/?apikey=29c143d5&t=${input}`)
+
+        .then((res) => {
+            return res.json()
+        })
+
+        .then((res) => {
+            console.log(res)
+            check(res)
+
+        })
+
+
+
+        function check(tt) {
+
+            // console.log(input)
+
+
+
+            if (tt.Response === "True") {
+                m.innerHTML = null;
+                let img = document.createElement("img")
+                img.src = tt.Poster;
+
+                let title_m = document.createElement("h1")
+                title_m.innerHTML = tt.Title;
+
+                let imdb = document.createElement("p")
+                imdb.innerHTML = tt.imdbRating;
+
+                let release = document.createElement("p")
+                release.innerHTML = tt.Year;
+
+                let genre = document.createElement("p")
+                genre.innerHTML = tt.Genre;
+                let type = document.createElement("p")
+                type.innerHTML = tt.Type
+
+                // let boxoffice = document.createElement("p")
+                // boxoffice.innerHTML = element.BoxOffice;
+                let i = document.createElement("div")
+                i.append(img)
+                m.append(i)
+
+
+                let c = document.createElement("div")
+                c.append(title_m, release, genre, type, imdb)
+                m.append(c)
+
+
+
+                if (Number(imdb.innerHTML) > 8.5) {
+                    console.log(imdb)
+                    let recommend = document.createElement("p")
+                    recommend.innerHTML = "Recommended"
+                    recommend.id = "recomm"
+                        // recommend.style.background = "green"
+                    c.append(recommend)
+
+                }
+
+
+            } else {
+                m.innerHTML = null;
+
+                let c = document.createElement("div")
+
+
+
+                // let i = document.createElement("i")
+                // i.className = "fas fa-search"
+                let im = document.createElement("img")
+                im.src = "https://m.filmfare.com/static/img/filmfare_pwa_404_page.jpg"
+                c.append(im)
+                m.append(c)
+                console.log("hi")
+            }
+
+
+
+
+
+
+        }
+    }
+</script>
