@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/f001449fdc.js" crossorigin="anonymous"></script>
+    <title>Youtube</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            color: black;
+        }
+        
+        #header {
+            display: flex;
+            align-items: center;
+        }
+        
+        nav {
+            height: 56px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            padding: 10px 2%;
+            justify-content: space-between;
+            box-shadow: 0 0 10px red;
+            background-color: white;
+            align-items: center;
+        }
+        
+        #header #middle {
+            display: flex;
+            align-items: center;
+        }
+        
+        #header #left i,
+        #header #middle div,
+        #header #middle input,
+        #header #middle button i,
+        #header #right i {
+            font-size: 25px;
+            align-items: center;
+            margin-right: 25px;
+            /* justify-content: center; */
+        }
+        
+        #header #middle input {
+            margin-right: 0;
+        }
+        
+        #header #middle button {
+            padding: 3px 2px;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .search {
+            display: flex;
+            background-color: rgb(218, 211, 211);
+            padding: 2px;
+        }
+        
+        #left img {
+            /* width: 100%; */
+            height: 50px;
+            align-items: center;
+            justify-content: centerc;
+        }
+        
+        #left {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #videos {
+            display: grid;
+            grid-template-columns: repeat(4, 20%);
+            gap: 2%;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <nav id="header">
+
+        <div id="left">
+            <a href="">
+
+                <i class="fas fa-bars"></i>
+            </a>
+            <a href="" class="image">
+                <img src="https://havecamerawilltravel.com/photographer/files/2020/01/youtube-logo-new.jpg" alt="">
+
+            </a>
+        </div>
+
+        <div id="middle">
+            <div class="search">
+                <input type="text" id="query" placeholder="Search">
+                <button onclick="searchVideos()"> <i class="fas fa-search"></i></button>
+
+            </div>
+            <div id="vsearch">
+                <a href=""><i class="fas fa-microphone"></i></a>
+
+            </div>
+
+        </div>
+
+        <div id="right">
+            <a href=""><i class="far fa-plus-square"></i></a>
+            <a href=""><i class="fas fa-th"></i></a>
+            <a href=""><i class="far fa-bell"></i></a>
+            <a href=""><i class="far fa-envelope"></i></a>
+        </div>
+
+
+    </nav>
+
+    <div id="videos"></div>
+</body>
+
+</html>
+
+
+<script>
+    let videos = document.getElementById("videos")
+
+
+    async function searchVideos() {
+
+        let query = document.getElementById("query").value;
+        let res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?maxResults=20&q=${query}&key=AIzaSyDc9h5pCe3QMmcuxo3Td4dqVbT1Lkz5cr0`)
+
+
+        data = await res.json();
+        console.log('data:', data)
+
+        appendVideos(data.items)
+    }
+
+
+    function appendVideos(video_data) {
+        videos.innerHTML = null
+        video_data.forEach(({
+            id: {
+                videoId
+            }
+        }) => {
+
+            // videos.innerHTML = null
+
+            let div = document.createElement("div")
+
+            div.innerHTML = `<iframe width="400" height="315" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+
+            //embedd yt video on our app
+
+            div.style.marginTop = "20px"
+            videos.append(div)
+        })
+
+
+    }
+</script>
