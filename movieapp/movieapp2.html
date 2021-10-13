@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/f001449fdc.js" crossorigin="anonymous"></script>
+    <title>Search1</title>
+    <style>
+        input {
+            width: 80%;
+            font-size: 30px;
+            border: 3px solid rgb(10, 10, 10);
+            padding: 10px;
+        }
+        
+        #heading {
+            justify-content: center;
+            text-align: center;
+            padding: 15px;
+            background-color: black;
+            font-size: 30px;
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        #movies {
+            height: 200px;
+            width: 80%;
+            border: 1px solid black;
+            overflow: scroll;
+            border-top: none;
+            background-color: aqua;
+            font-size: 30px;
+        }
+        
+        #iMovie {
+            display: flex;
+            margin: 10px;
+            /* grid-template-columns: auto auto; */
+            /* grid: 20px; */
+        }
+        
+        #iMovie div {
+            width: 30%;
+            margin: 10px;
+        }
+        
+        #iMovie img {
+            width: 100%;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="heading">MOVIES-SEARCH</div>
+    <input type="search" name="" oninput="debounce(find, 1000)" id="mName">
+
+
+
+    <div id="movies">
+
+
+    </div>
+
+    <div id="iMovie">
+
+    </div>
+</body>
+
+</html>
+
+<script>
+    var movies_div = document.getElementById("movies")
+    var iMovie = document.getElementById("iMovie");
+    var timerId;
+
+    async function searchMovies(movie_name) {
+
+        try {
+            let res = await fetch(`https://www.omdbapi.com/?apikey=29c143d5&s=${movie_name}`)
+
+            let data = await res.json();
+
+            //returns arry of object which are relevent to movie name entered
+            // console.log(data.Search)
+
+            return data.Search;
+        } catch (e) {
+
+            console.log('e:', e)
+
+
+
+        }
+
+
+    }
+
+    function append(k) {
+
+        if (k == undefined) {
+            return false;
+        }
+
+        movies_div.innerHTML = null;
+
+        k.forEach(movie => {
+
+
+            let p = document.createElement("p")
+            p.innerText = movie.Title;
+
+            p.onclick = function() {
+
+                showMovieData(movie);
+                return;
+            }
+            movies_div.append(p)
+
+
+
+        });
+
+
+    }
+
+    async function find() {
+
+        let name = document.getElementById('mName').value;
+
+        if (name.length < 3) {
+            return false;
+        }
+
+        let data = await searchMovies(name);
+
+        append(data)
+
+
+
+    }
+
+
+
+
+    function showMovieData(movie_obj) {
+
+        console.log(iMovie)
+
+        console.log(movie_obj)
+        iMovie.innerHTML = null;
+        let img = document.createElement("img")
+        img.src = movie_obj.Poster;
+
+        let title_m = document.createElement("h1")
+        title_m.innerHTML = movie_obj.Title;
+
+        let imdb = document.createElement("p")
+        imdb.innerHTML = movie_obj.imdbRating;
+
+        let release = document.createElement("p")
+        release.innerHTML = "Release In: " + movie_obj.Year;
+
+
+        let type = document.createElement("p")
+        type.innerHTML = "Type: " + movie_obj.Type
+
+        // let boxoffice = document.createElement("p")
+        // boxoffice.innerHTML = element.BoxOffice;
+        let i = document.createElement("div")
+        i.append(img)
+        iMovie.append(i)
+
+
+        let c = document.createElement("div")
+        c.append(title_m, release, type)
+        iMovie.append(c)
+
+
+    }
+
+    function debounce(func, delay) {
+
+        //lets talk about A
+        //func = main()
+
+
+        //ave-setTimeout - func - main()-searchMovies("ave")
+        //aven-clear the prev timeour - setTimout - func()-main()-searchMovies("aven;")
+
+        if (timerId) {
+            clearTimeout(timerId)
+        }
+
+
+        timerId = setTimeout(() => {
+
+            func();
+
+        }, delay)
+
+
+    }
+</script>
