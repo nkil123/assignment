@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/f001449fdc.js" crossorigin="anonymous"></script>
+    <title>Youtube</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            color: black;
+        }
+        
+        #header {
+            display: flex;
+            align-items: center;
+        }
+        
+        nav {
+            height: 56px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            padding: 10px 2%;
+            justify-content: space-between;
+            box-shadow: 0 0 10px red;
+            background-color: white;
+            align-items: center;
+        }
+        
+        #header #middle {
+            display: flex;
+            align-items: center;
+        }
+        
+        #header #left i,
+        #header #middle div,
+        #header #middle input,
+        #header #middle button i,
+        #header #right i {
+            font-size: 25px;
+            align-items: center;
+            margin-right: 25px;
+            /* justify-content: center; */
+        }
+        
+        #header #middle input {
+            margin-right: 0;
+        }
+        
+        #header #middle button {
+            padding: 3px 2px;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .search {
+            display: flex;
+            background-color: rgb(218, 211, 211);
+            padding: 2px;
+        }
+        
+        #left img {
+            /* width: 100%; */
+            height: 50px;
+            align-items: center;
+            justify-content: centerc;
+        }
+        
+        #left {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #videos {
+            display: grid;
+            grid-template-columns: repeat(4, 20%);
+            gap: 2%;
+            justify-content: center;
+        }
+        
+        #movies {
+            position: fixed;
+            top: 50px;
+            /* height: 200px;
+            width: 300px; */
+            border: 1px solid black;
+            overflow: scroll;
+            border-top: none;
+            background-color: aqua;
+            font-size: 30px;
+            z-index: 100;
+            visibility: hidden;
+        }
+        
+        #iMovie {
+            display: absolute;
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: 25% 25% 25%;
+            gap: 3%;
+            justify-content: center;
+            z-index: 10;
+            /* border: 2px solid red; */
+            background-color: black;
+        }
+        
+        #iMovie .movieinfo {
+            /* margin: 10px; */
+            justify-content: center;
+            text-align: center;
+            background-color: rgb(190, 183, 183);
+            border-radius: 4px;
+        }
+        
+        #iMovie .movieinfo img {
+            width: 70%;
+            height: 300px;
+            /* background-color: red; */
+        }
+        /* #iMovie img {
+            width: 100%;
+            height: 300px;
+        }
+         */
+        
+        #popular {
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 30px;
+        }
+        
+        h1 {
+            color: white;
+        }
+        
+        body {
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <nav id="header">
+
+        <div id="left">
+            <a href="" onclick="popular(event)">
+
+                <h2>Popular movies</h2>
+            </a>
+
+        </div>
+
+        <div id="middle">
+            <div class="search">
+                <input type="search" name="" oninput="debounce(find, 1000)" id="mName" placeholder="Search">
+
+                <div id="movies">
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div id="right">
+            <h3 id="usershow"></h3>
+        </div>
+
+
+    </nav>
+    <div id="iMovie">
+
+    </div>
+
+</body>
+
+</html>
+
+
+<script>
+    const api_key = "api_key=d4e2201779770c2f16f2a8c940e6b9d1"
+    const base_url = "https://api.themoviedb.org/3"
+    const url = base_url + "/discover/movie?sort_by=popularity.desc&" + api_key
+        // url = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=d4e2201779770c2f16f2a8c940e6b9d1"
+
+
+
+
+    var movies_div = document.getElementById("movies")
+    var iMovie = document.getElementById("iMovie");
+    var timerId;
+
+    async function searchMovies(movie_name) {
+
+        try {
+            let res = await fetch(`https://www.omdbapi.com/?apikey=29c143d5&s=${movie_name}`)
+
+            let data = await res.json();
+
+            //returns arry of object which are relevent to movie name entered
+            // console.log(data.Search)
+
+            return data.Search;
+        } catch (e) {
+
+            console.log('e:', e)
+
+
+
+        }
+
+
+    }
+
+    function append(k) {
+
+        if (k == undefined) {
+            return false;
+        }
+
+        movies_div.innerHTML = null;
+
+        k.forEach(movie => {
+
+
+            let p = document.createElement("p")
+            p.innerText = movie.Title;
+
+            p.onclick = function() {
+
+                showMovieData(movie);
+                return;
+            }
+            movies_div.append(p)
+
+
+
+        });
+
+
+    }
+
+    async function find() {
+
+        let name = document.getElementById('mName').value;
+
+        if (name.length < 3) {
+            return false;
+        }
+
+        let data = await searchMovies(name);
+
+        append(data)
+
+
+
+    }
+
+
+
+
+    function showMovieData(movie_obj) {
+
+        console.log(iMovie)
+        movies_div.style.visibility = "hidden"
+        console.log(movie_obj)
+        iMovie.innerHTML = null;
+        let img = document.createElement("img")
+        img.src = movie_obj.Poster;
+
+        let title_m = document.createElement("h1")
+        title_m.innerHTML = movie_obj.Title;
+
+        let imdb = document.createElement("p")
+        imdb.innerHTML = movie_obj.imdbRating;
+
+        let release = document.createElement("p")
+        release.innerHTML = "Release In: " + movie_obj.Year;
+
+
+        let type = document.createElement("p")
+        type.innerHTML = "Type: " + movie_obj.Type
+
+        // let boxoffice = document.createElement("p")
+        // boxoffice.innerHTML = element.BoxOffice;
+        let i = document.createElement("div")
+        i.append(img)
+        let imgdiv = document.createElement("div")
+        imgdiv.className = "imgd"
+
+        imgdiv.append(i)
+
+        let c = document.createElement("div")
+        c.className = "movieinfo"
+        c.append(imgdiv, title_m, release, type)
+        iMovie.append(c)
+
+
+    }
+
+    function debounce(func, delay) {
+
+        //lets talk about A
+        //func = main()
+
+        movies_div.style.visibility = `visible`
+        console.log(iMovie.style.visibility)
+
+        //ave-setTimeout - func - main()-searchMovies("ave")
+        //aven-clear the prev timeour - setTimout - func()-main()-searchMovies("aven;")
+
+        if (timerId) {
+            clearTimeout(timerId)
+        }
+
+
+        timerId = setTimeout(() => {
+
+            func();
+
+        }, delay)
+
+
+    }
+
+
+    async function pdata() {
+        console.log("nk")
+        let res = await fetch(url)
+        let pdata = await res.json();
+        console.log(pdata.results)
+        return pdata.results;
+
+    }
+    // pdata()
+
+    function displayData(p) {
+        movies_div.style.visibility = "hidden"
+        iMovie.innerHTML = null;
+        p.forEach(movie => {
+
+            let img = document.createElement("img")
+            img.src = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
+
+            let title_m = document.createElement("h1")
+            title_m.innerHTML = movie.title;
+
+            let imdb = document.createElement("p")
+            imdb.innerHTML = movie.id;
+
+            let release = document.createElement("p")
+            release.innerHTML = "Release In: " + movie.release_date;
+
+
+            let type = document.createElement("p")
+            type.innerHTML = "Type: " + movie.original_language
+
+            // let boxoffice = document.createElement("p")
+            // boxoffice.innerHTML = element.BoxOffice;
+            let i = document.createElement("div")
+            i.append(img)
+            let imgdiv = document.createElement("div")
+            imgdiv.className = "imgd"
+
+            imgdiv.append(i)
+
+            let c = document.createElement("div")
+            c.className = "movieinfo"
+            c.append(imgdiv, title_m, release, type)
+            iMovie.append(c)
+
+
+        });
+
+    }
+
+    async function popular(e) {
+
+        e.preventDefault()
+        let popdata = await pdata();
+        console.log("nilesh")
+        console.log(pdata)
+        displayData(popdata)
+
+
+
+    }
+
+    let h3 = document.getElementById("usershow")
+
+    let token = JSON.parse(localStorage.getItem("token"))
+
+    h3.innerHTML = token[0]
+    console.log('h3:', h3)
+</script>

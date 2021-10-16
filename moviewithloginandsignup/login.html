@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: black;
+        }
+        
+        #container {
+            width: 80%;
+            height: 600px;
+            background-image: url("https://i0.wp.com/techdipper.com/wp-content/uploads/2020/04/Free-movie-streaming-apps-for-android.jpg?fit=1200%2C720&ssl=1");
+            background-size: cover;
+            margin: auto;
+        }
+        
+        .sinup {
+            margin: auto;
+            width: 40%;
+            height: 7%;
+            color: coral;
+            text-align: center;
+            font-size: 30px;
+        }
+        
+        #block {
+            margin-left: 50%;
+            /* margin: auto; */
+            margin-top: 20px;
+            border: 1px solid white;
+            background-color: white;
+            width: 50%;
+            height: 100%;
+            margin-top: 30px;
+        }
+        
+        #form {
+            border: none;
+            font-size: 20px;
+            margin: 20px;
+        }
+        
+        #form>input,
+        #form>lable {
+            margin: 10px;
+            padding: 5px;
+            width: 60%;
+        }
+        
+        #submit {
+            margin: 15px;
+            padding: 6px;
+            background-color: coral;
+            width: 40%;
+        }
+        
+        .heading {
+            font-size: medium;
+            font-weight: bolder;
+            color: slategrey;
+        }
+        
+        .button-clr {
+            color: black;
+            font-weight: bolder;
+        }
+        
+        .block {
+            text-align: center;
+        }
+        
+        .bd-color {
+            margin-top: 15px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+
+
+        <div id="block" class="block">
+
+            <div>
+                <div id="no-background">
+                    <img class='bd-color' src="https://i0.wp.com/techdipper.com/wp-content/uploads/2020/04/Free-movie-streaming-apps-for-android.jpg?fit=1200%2C720&ssl=1" />
+                </div>
+                <div class="sinup">
+                    <h3>sign-in</h3>
+                </div>
+
+                <form onsubmit="login(event)" id="login_form">
+
+
+                    <label for="username">Enter Username</label><br>
+                    <input type="text" id="username"><br><br>
+
+
+
+                    <label for="name">Enter Password</label><br>
+                    <input type="password" id="password"><br><br>
+
+                    <input type="submit" id="submit">
+
+
+
+
+
+
+                </form>
+                <div>
+                    <!-- <h2>To login </h2> -->
+                    <a href="sign_up.html">click-here to Sign-Up</a>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</body>
+
+</html>
+<script>
+    function login(e) {
+        e.preventDefault();
+
+        let form = document.getElementById("login_form")
+
+        let user_data = {
+
+            password: form.password.value,
+            username: form.username.value,
+
+
+        }
+
+
+        let data_to_send = JSON.stringify(user_data)
+        console.log('data_to_send:', data_to_send)
+
+        fetch("https://masai-api-mocker.herokuapp.com/auth/login", {
+                method: "POST",
+                body: data_to_send,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+
+            })
+            .then((k) => {
+                return k.json()
+            })
+            .then((res) => {
+                console.log(res);
+                if (res.error === false) {
+                    alert("successfull")
+                        // transfer(res.token)
+
+                }
+
+
+                fetchmyData(user_data.username, res.token)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
+
+        function fetchmyData(username, token) {
+
+
+            fetch(`https://masai-api-mocker.herokuapp.com/user/${username}`, {
+
+                    headers: {
+                        "Content-Type": "application/json",
+
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                .then((res) => {
+                    return res.json()
+                })
+                .then((res) => {
+                    console.log(res)
+                    transfer(res.username)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+
+
+        }
+
+        function transfer(token) {
+
+            if (localStorage.getItem("token") === null) {
+                localStorage.setItem("token", JSON.stringify([]))
+            }
+
+            let tok = JSON.parse(localStorage.getItem("token"))
+            tok = []
+            tok.push(token)
+            console.log('tok:', tok)
+            localStorage.setItem("token", JSON.stringify(tok))
+            window.location.href = "metflix.html"
+            return;
+
+        }
+
+
+    }
+</script>
