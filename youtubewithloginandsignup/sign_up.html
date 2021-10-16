@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: black;
+        }
+        
+        #container {
+            width: 80%;
+            height: 800px;
+            background-image: url("https://filmdaily.co/wp-content/uploads/2021/02/youtubefriends-lede.jpg");
+            background-size: cover;
+            margin: auto;
+        }
+        
+        .sinup {
+            margin: auto;
+            width: 40%;
+            height: 7%;
+            color: coral;
+            text-align: center;
+            font-size: 30px;
+        }
+        
+        #block {
+            margin-left: 50%;
+            /* margin: auto; */
+            margin-top: 20px;
+            border: 1px solid white;
+            background-color: white;
+            width: 50%;
+            height: 100%;
+            margin-top: 30px;
+        }
+        
+        #form {
+            border: none;
+            font-size: 20px;
+            margin: 20px;
+        }
+        
+        #form>input,
+        #form>lable {
+            margin: 10px;
+            padding: 5px;
+            width: 60%;
+        }
+        
+        #submit {
+            margin: 15px;
+            padding: 6px;
+            background-color: coral;
+            width: 40%;
+        }
+        
+        .heading {
+            font-size: medium;
+            font-weight: bolder;
+            color: slategrey;
+        }
+        
+        .button-clr {
+            color: black;
+            font-weight: bolder;
+        }
+        
+        .block {
+            text-align: center;
+        }
+        
+        .bd-color {
+            margin-top: 15px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+
+
+        <div id="block" class="block">
+
+            <div>
+                <div id="no-background">
+                    <img class='bd-color' src="https://lh3.googleusercontent.com/3zkP2SYe7yYoKKe47bsNe44yTgb4Ukh__rBbwXwgkjNRe4PykGG409ozBxzxkrubV7zHKjfxq6y9ShogWtMBMPyB3jiNps91LoNH8A=s500" />
+                </div>
+                <div class="sinup">
+                    <h3>SignUp</h3>
+                </div>
+
+                <form onsubmit="signup(event)" id="signup-form">
+
+                    <label for="name">Enter your name</label><br>
+                    <input type="text" id="name"><br><br>
+
+                    <label for="name">Enter Username</label><br>
+                    <input type="text" id="username"><br><br>
+
+                    <label for="email">Enter your Email</label><br>
+                    <input type="email" id="email"><br><br>
+
+                    <label for="number">Enter your mobile number</label><br>
+                    <input type="number" id="mobile"><br><br>
+
+                    <label for="name">Enter Password</label><br>
+                    <input type="password" id="password"><br><br>
+
+                    <label for="name">Description</label><br>
+                    <input type="password" id="description"><br><br>
+
+                    <input type="submit" class=".button-clr" id="submit">
+
+
+                </form>
+                <div>
+                    <!-- <h2>To login </h2> -->
+                    <a href="login.html">click-here to Login</a>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</body>
+
+</html>
+<script>
+    function signup(e) {
+        e.preventDefault();
+
+        e.preventDefault()
+
+        let form = document.getElementById("signup-form")
+
+        let user_data = {
+            name: form.name.value,
+            email: form.email.value,
+            password: form.password.value,
+            username: form.username.value,
+            mobile: form.mobile.value,
+            description: form.description.value,
+
+        }
+
+        function checkForProperData() {
+
+            for (k in user_data) {
+                if (user_data[k] === "") {
+                    alert("please fill all the details")
+                    return false;
+                }
+            }
+
+            return;
+        }
+
+        user_data = JSON.stringify(user_data)
+        console.log('user_data:', user_data)
+
+
+
+
+        fetch("https://masai-api-mocker.herokuapp.com/auth/register", {
+
+                method: "POST",
+
+                body: user_data,
+
+                headers: {
+                    "Content-Type": "application/json",
+                },
+
+            })
+            .then((res) => {
+                return res.json()
+            })
+            .then((res) => {
+                console.log(res)
+                if (res.error === false) {
+                    alert("successfull")
+                    window.location.href = "login.html"
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
+
+
+
+
+
+
+    }
+</script>
