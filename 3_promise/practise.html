@@ -1,0 +1,73 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <input type="text" id="name">
+        <button onclick="reg()">reg</button>
+    </div>
+</body>
+
+</html>
+
+<script>
+    let queue = ["s", "k", "r", "a", "b"]
+
+
+    function reg() {
+
+        let name = document.getElementById("name").value;
+
+        queue.push(name)
+
+        let myPromise = new Promise(function(resolve, reject) {
+
+            let interval = setInterval(function() {
+                if (queue[0] === name) {
+                    resolve(`${name}its your turn`)
+
+                    clearInterval(interval)
+                }
+
+
+            })
+
+
+
+
+
+        })
+
+        myPromise.then(function(res) {
+            alert(res)
+        })
+
+
+
+
+
+    }
+
+
+    function start() {
+
+        queue.shift();
+        if (queue.length === 0) {
+            clearInterval(interval)
+        }
+    }
+
+
+    let interval = setInterval(start, 3000)
+</script> -->
+
+<script>
+    console.log(typeof(Math.ceil(Math.random() * 100).toString()))
+</script>

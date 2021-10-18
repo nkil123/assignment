@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>family</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+<script>
+    // inheritance model of my family using Object.create() 
+
+    //prototype
+    // let grandParents = {
+
+
+    //     grandFather: "Siddramappa Kotle",
+    //     grandMother: "Mahadevi Kotle"
+
+    // }
+    // console.log('grandParents:', grandParents)
+
+    // let parents = Object.create(grandParents)
+
+    // parents.father = "Dattatreya Kotle"
+    // parents.mother = "Shailaja Kotle"
+
+    // console.log('parents:', parents)
+
+
+
+
+
+    // let childrens = Object.create(parents)
+
+    // childrens.elderSon = "Niteesh Kotle"
+    // childrens.daughter = "Shweta Kotle"
+    // childrens.youngerSon = "Nilesh Kotle"
+    // console.log('childrens:', childrens)
+
+    // let elderSon = Object.create(parents)
+
+    // elderSon.name = "Niteesh Kotle"
+    // console.log('elderSon:', elderSon)
+
+    // let daughter = Object.create(parents)
+
+    // daughter.name = "Shweta Kotle"
+    // console.log('daughter:', daughter)
+
+    // let youngerSon = Object.create(parents)
+
+    // youngerSon.name = "Nilesh Kotle"
+    // console.log('youngerSon:', youngerSon)
+
+
+
+
+
+
+
+
+    //using constrctfunctions
+
+    //PROTOTYPE
+    let grandP = {
+        grandFather: "Siddramappa Kotle",
+        grandMother: "Mahadevi Kotle"
+    }
+
+    function parent(n, m) {
+        this.father = n;
+        this.mother = m;
+    }
+
+    function childrenss(k) {
+        this.child = k
+    }
+    parent.prototype = grandP;
+    let parentss = new parent("Dattatreya", "Shailaja")
+    console.log('parentss:', parentss)
+
+
+
+    childrenss.prototype = parent
+    let c1 = new childrenss("Niteesh")
+    console.log('c1:', c1)
+
+    let c2 = new childrenss("Shweta")
+    console.log('c2:', c2)
+
+    let c3 = new childrenss("Nilesh")
+    console.log('c3:', c3)
+</script>

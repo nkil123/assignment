@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task</title>
+
+    <style>
+        form>div {
+            margin: 10px;
+        }
+        
+        td {
+            border: 1px solid gray;
+            min-height: 100px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="myForm" onsubmit="start(event)">
+        <div>
+            <label>Name</label>
+            <input type="text" id="name" />
+        </div>
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+    <div id="div_list">
+        <ul id="list">
+
+
+        </ul>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    //blueprint for all the tasks
+    function Task(n, s) {
+
+        this.name = n,
+            this.date = new Date().getDate(),
+            this.status = s;
+
+    }
+
+
+    //called when submit button is pressed
+    function start(e) {
+
+        e.preventDefault();
+
+        let tname = document.getElementById("name").value;
+        console.log(tname)
+
+        let task = new Task(tname, false)
+        console.log('task:', task)
+
+        createRow(task, tname)
+
+    }
+
+    function createRow(task, tname) {
+
+        let toggle_btn = document.createElement("button")
+        toggle_btn.innerHTML = "toggle"
+        toggle_btn.onclick = function() {
+            let x = Task.bind(task, tname, !task.status)
+            x()
+            li3.innerHTML = task.status
+
+        }
+
+
+        let ul = document.getElementById("list")
+
+        let li1 = document.createElement("li")
+        li1.innerHTML = task.name;
+
+
+        let li2 = document.createElement("li")
+        li2.innerHTML = task.date;
+
+
+        let li3 = document.createElement("li")
+        li3.innerHTML = task.status;
+
+
+        let br = document.createElement("br")
+
+
+        ul.append(li1, li2, li3, toggle_btn, br)
+
+        let div = document.getElementById("div_list")
+        div.append(ul)
+
+        function swap(s) {
+            console.log("hii")
+        }
+
+
+
+
+    }
+</script>

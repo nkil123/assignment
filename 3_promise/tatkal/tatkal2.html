@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Tatkal Booking system</h1>
+    <button onclick="checkAvailability()">check</button>
+</body>
+
+</html>
+
+
+<script>
+    let BtoG = ["d", "k", "g", "r", "a", "s", "b", "c"]
+
+    let MtoG = ["d", "k", "g", "r", "a", "r", "g", "p"]
+
+    let PtoG = ["d", "k", "g", "r", "a", "r", "g", "p"]
+
+    async function checkAvailability() {
+
+
+
+        let promise = new Promise(function(resolve, reject) {
+
+            let interval2 = setInterval(function() {
+                if (BtoG.length == 4) {
+                    resolve(`BtoG`)
+                    clearInterval(interval2)
+                } else if (MtoG.length == 4) {
+                    resolve(`MtoG`)
+                    clearInterval(interval2)
+                } else if (PtoG.length == 4) {
+                    resolve(`PtoG`)
+                    clearInterval(interval2)
+                }
+            }, 1000);
+
+
+        })
+
+        let res = await promise;
+        console.log('res:', res)
+        if (localStorage.getItem("train name") === null) {
+            localStorage.setItem("train name", JSON.stringify([]))
+        }
+
+        let tname = JSON.parse(localStorage.getItem("train name"))
+        tname.push(res)
+        localStorage.setItem("train name", JSON.stringify(tname))
+
+        window.location.href = "booking.html"
+
+    }
+
+    function cancelTicker() {
+
+        //cancellation speed should be random
+
+        let cancelling_speed1 = Math.round(Math.random() * 5)
+        let cancelling_speed2 = Math.round(Math.random() * 5)
+        let cancelling_speed3 = Math.round(Math.random() * 5)
+
+        setTimeout(function() {
+            BtoG.pop()
+        }, cancelling_speed1 * 1000)
+
+        setTimeout(function() {
+            MtoG.pop()
+        }, cancelling_speed2 * 1000)
+
+        setTimeout(function() {
+            PtoG.pop()
+        }, cancelling_speed3 * 1000)
+
+        console.log(BtoG, MtoG, PtoG)
+
+    }
+
+    function bookTicker() {
+
+        //cancellation speed should be random
+
+        let booking_speed1 = Math.round(Math.random() * 5)
+        let booking_speed2 = Math.round(Math.random() * 5)
+        let booking_speed3 = Math.round(Math.random() * 5)
+        setTimeout(function() {
+            BtoG.push(Math.ceil(Math.random() * 100).toString())
+        }, booking_speed1 * 1000)
+
+        setTimeout(function() {
+            MtoG.push(Math.ceil(Math.random() * 100).toString())
+        }, booking_speed2 * 1000)
+
+        setTimeout(function() {
+            PtoG.push(Math.ceil(Math.random() * 100).toString())
+        }, booking_speed3 * 1000)
+
+        console.log(BtoG, MtoG, PtoG)
+
+    }
+
+
+    let interval2 = setInterval(bookTicker, 5000)
+    let interval = setInterval(cancelTicker, 2000)
+</script>

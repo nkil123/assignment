@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #container {
+            display: grid;
+            grid-template-columns: 60% 40%;
+        }
+        
+        #order {
+            /* background-color: red;
+            height: 200px; */
+            /* width: 100px; */
+            display: grid;
+            grid-template-columns: 60% 40%;
+        }
+        
+        #order img {
+            background-color: white;
+            width: 100%;
+        }
+        
+        #token {
+            text-align: end;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <div id="left">
+            <div class="a">
+
+                <table>
+
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="" onclick="addItem(1)">
+                        </td>
+                        <td>
+                            <img src="https://images.mcdelivery.co.in/hardcastle-restaurants-pvt-ltd/image/upload/f_auto,q_auto,w_250/v1626710252/Item/5996.png" alt="" id="img1"><br>
+                            <h1 for="" id="txt1">foodA</h1>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="" class="b" onclick="addItem(2)">
+                        </td>
+                        <td>
+                            <img src="https://images.mcdelivery.co.in/hardcastle-restaurants-pvt-ltd/image/upload/f_auto,q_auto,w_250/v1589466996/Item/5150.png" alt="" id="img2"><br>
+                            <h1 for="" id="txt2">foodB</h1>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="" class="c" onclick="addItem(3)">
+                        </td>
+                        <td>
+                            <img src="https://images.mcdelivery.co.in/hardcastle-restaurants-pvt-ltd/image/upload/f_auto,q_auto,w_250/v1626342718/Item/5276.png" alt="" id="img3"><br>
+                            <h1 for="" id="txt3">foodC</h1>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="" class="d" onclick="addItem(4)">
+                        </td>
+                        <td>
+                            <img src="https://images.mcdelivery.co.in/hardcastle-restaurants-pvt-ltd/image/upload/f_auto,q_auto,w_250/v1606219854/Item/5448.png" alt="" id="img4"><br>
+                            <h1 for="" id="txt4">foodD</h1>
+
+                        </td>
+                    </tr>
+
+
+
+                </table>
+
+
+
+            </div>
+            <h1 for=""> Click to Order food</h1>
+            <button id="obtn">Order food</button>
+
+
+        </div>
+        <div id="right">
+
+
+            <div id="token">
+
+            </div>
+
+            <div id="order">
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+</body>
+
+</html>
+
+<script>
+    let data = []
+
+    function addItem(item) {
+        console.log("hi")
+
+        let x = item;
+        let img = document.getElementById("img" + x)
+        let text = document.getElementById("txt" + x)
+
+        let obj = {
+            img: img,
+            text: text
+        }
+
+        data.push(obj)
+        console.log(data)
+
+
+        let btn = document.getElementById("obtn")
+        btn.onclick = function() {
+            let myPromise = new Promise(function(resolve, reject) {
+
+
+                let promise = new Promise(function(resolve, reject) {
+
+                    setTimeout(function() {
+                        resolve("order is ready")
+                    }, 5000);
+
+
+                })
+                promise.then(function(res) {
+                    console.log("hhhhhhh")
+
+                    let t = document.getElementById("token")
+                    let token = document.createElement("h1")
+                    token.innerHTML = `Token No:${Math.ceil(Math.random() * 100).toString()}`
+
+                    t.append(token)
+
+
+                    data.forEach(element => {
+                        let placeimg = document.createElement("div")
+                        placeimg.className = "pimg"
+                        let immag = document.createElement("img")
+                        immag.src = element.img.src
+                        placeimg.append(immag)
+
+                        let textbox = document.createElement("div")
+                        textbox.className = "ptext"
+                        let h1 = document.createElement("h1")
+                        h1.innerHTML = text.innerHTML
+                        textbox.append(h1)
+
+
+                        let order = document.getElementById("order")
+
+                        order.append(placeimg, textbox)
+                    });
+                })
+
+
+
+
+
+            })
+
+
+
+        }
+
+
+
+
+    }
+</script>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <label for="">Enter name</label>
+        <input type="text" name="" id="name">
+
+        <label for="">Enter age</label>
+        <input type="number" name="" id="age">
+
+        <button onclick="reg()">Register</button>
+    </div>
+</body>
+
+</html>
+
+<script>
+    let queue = ["n", "i", "l", "e", "j", "r"]
+    var count = 4;
+
+    function reg() {
+
+        var name = document.getElementById("name").value
+        var age = document.getElementById("age").value
+        if (age > 65) {
+            queue.unshift(name)
+            console.log(queue)
+            count--;
+        } else {
+            queue.push(name)
+            count--;
+
+        }
+
+        // console.log(queue)
+        if (count > 0) {
+            let message = `${name} your reg successful. now go stand`
+
+            alert(message);
+        } else {
+            alert("vaccine out of stock, visit tomorrow")
+        }
+
+
+        let mypromise = new Promise(function(resolve, reject) {
+
+            let int = setInterval(function() {
+                if (queue[0] === name && count > 0) {
+                    resolve(`${name} its your turn now`)
+                    clearInterval(int)
+                } else if (count == 0) {
+                    reject("vaccine out of stock, visit tomorrow")
+                    clearInterval(int)
+                }
+            }, 1000)
+
+
+        });
+        //we link line38 with below line were res is the sentence under resolve
+        mypromise.then(function(res) {
+            console.log(queue, count, "people in queue still--" + queue.length)
+            alert(res)
+            queue.pop()
+        })
+
+        mypromise.catch(function(rej) {
+            alert(rej)
+        })
+
+
+
+
+    }
+
+
+
+
+
+    function startVaccination() {
+
+
+        queue.shift();
+        count--;
+
+
+
+        if (queue.length == 0 || count == 0) {
+            if (count == 0) {
+                alert("vaccine out of stock, visit tomorrow")
+            }
+
+            clearInterval(interval);
+
+        }
+
+        console.log(queue, count, "people in queue still--" + queue.length)
+
+
+    }
+
+    let interval = setInterval(startVaccination, 5000)
+</script>

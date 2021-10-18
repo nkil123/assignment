@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <h1>WELCOME TO TATKAL TICKET BOOKING SYSTEM FILL THE DETAILS TO BOOK YOUR TICKETS</h1>
+    <form onsubmit="book(event)">
+        <label for="">Enter your name</label>
+        <input type="text" id="name">
+
+        <label for="">Age</label>
+        <input type="number" id="age">
+
+        <label for="">Gender</label>
+        <input type="text" id="gender">
+
+        <label for="">Adhaar number</label>
+        <input type="number" id="id">
+
+        <label for="">Mobile Number</label>
+        <input type="number" id="number">
+
+        <input type="submit">
+    </form>
+</body>
+
+</html>
+
+<script>
+    let count = 0;
+
+    function book(e) {
+
+
+        e.preventDefault();
+        let name = document.getElementById("name").value;
+        let age = document.getElementById("age").value;
+        let gender = document.getElementById("gender").value;
+        let adhaar = document.getElementById("id").value;
+        let mobile = document.getElementById("number").value;
+
+        let train_name = JSON.parse(localStorage.getItem("train name"))[0]
+
+
+        count++;
+        alert(`Total ${count} tickets booked to trian from ${train_name} 
+        Details of current ticket booked:
+        name:${name},
+        age:${age}
+        Gender:${gender}
+        adhaar:${adhaar}
+        mobile:${mobile}
+        
+       `)
+
+
+
+    }
+</script>

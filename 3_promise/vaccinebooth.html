@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <label for="">Enter name</label>
+        <input type="text" name="" id="name">
+        <button onclick="reg()">Register</button>
+    </div>
+</body>
+
+</html>
+
+<script>
+    let queue = ["n", "i", "l", "e"]
+
+    function reg() {
+
+        var name = document.getElementById("name").value
+
+        queue.push(name)
+
+        let message = `${name} your reg successful. now go stand`
+
+        alert(message);
+
+        let mypromise = new Promise(function(resolve, reject) {
+
+            setInterval(function() {
+                if (queue[0] === name) {
+                    resolve(`${name} its your turn now`)
+                }
+            }, 1000)
+
+
+        });
+        //we link line38 with below line were res is the sentence under resolve
+        mypromise.then(function(res) {
+            alert(res)
+        })
+
+
+    }
+
+
+
+
+
+    function startVaccination() {
+
+
+        queue.shift();
+
+
+        if (queue.length == 0) {
+            clearInterval(interval);
+
+        }
+
+        console.log(queue)
+
+
+    }
+
+
+    startVaccination()
+    let interval = setInterval(startVaccination, 2000)
+</script>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+
+<script>
+    const post = {
+        name: "",
+        like: "",
+        user: ""
+    }
+
+    //inheritence
+    const comment = Object.create(post);
+
+
+
+    // examples: like comment in any social media we show just comment not like time and all
+
+    //Inheritance using construct function 
+
+
+    const post = {
+
+            name: "masai had event in patna",
+            likes: 200,
+            user: "nilesh"
+
+
+        } //prototype
+
+
+    function Comment(n, u) {
+
+        this.name = n,
+            this.user = u
+
+    }
+
+    //to add all prop of post to comment
+    Comment.prototype = post;
+
+
+
+    let c1 = new Comment("nice pic dear", "nilesh")
+    console.log('c1:', c1)
+
+
+    // how everthing in javascript is a object
+
+    var name = new String("nilesh") //wrapper object
+
+
+    name.length() //these methods call wrapper obj and 
+
+
+    //library
+    // custom built 
+
+    let arr = new MyArray("raju", "sham", "babubhaiya"); //function execution
+    console.log('arr:', arr)
+
+
+    function MyArray() {
+        //length property
+        this.length = arguments.length;
+
+        //indexing of array
+        for (let i = 0; i < this.length; i++) {
+
+            this[i] = arguments[i]
+
+
+        }
+
+    }
+
+
+    MyArray.prototype.pushh = function(value) {
+
+        let index = this.length
+
+        this[index] = value
+
+        this.length++;
+
+    }
+
+
+    arr.pushh("Totla Seth")
+
+    console.log(Object.values(arr), "hi")
+
+
+
+
+
+    MyArray.prototype.tegi = function(value) {
+
+
+        let indextoRemove = this.length - 1;
+        delete this[indextoRemove];
+
+        this.length--;
+
+    }
+    arr.tegi();
+    console.log(Object.values(arr))
+</script>

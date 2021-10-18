@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>array1</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+
+<script>
+    let arr = new MyArray("vk", "abd", "maxi"); //function execution
+    console.log('arr:', arr)
+
+    function MyArray() {
+
+
+        // console.log(arguments)
+
+        this.length = arguments.length;
+
+        for (let i = 0; i < this.length; i++) {
+
+            this[i] = arguments[i]
+
+
+        }
+
+
+    }
+
+
+    MyArray.prototype.vattu = function(value) {
+
+        let newIndex = this.length + 1;
+
+        this[newIndex] = value;
+
+        this.length++;
+
+
+    }
+    arr.vattu("DDP")
+    console.log(Object.values(arr))
+
+
+
+    MyArray.prototype.tirugs = function() {
+
+
+        var array = Object.values(this)
+        let left = 0,
+            right = this.length - 1;
+        // console.log(this[left])
+        while (left < right) {
+
+            let temp = array[left];
+            array[left] = array[right]
+            array[right] = temp;
+
+            left++, right--;
+
+
+        }
+        return array;
+
+
+    }
+
+    console.log("before", Object.values(arr))
+
+    let aftRev = arr.tirugs()
+    console.log("after", aftRev);
+    console.log("first-element-after-reversing        ", aftRev[0])
+</script>

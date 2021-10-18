@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task</title>
+
+    <style>
+        #container {
+            display: grid;
+            grid-template-columns: auto auto;
+        }
+        
+        form>div {
+            margin: 10px;
+        }
+        
+        td {
+            border: 1px solid gray;
+            min-height: 100px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div>
+            <form id="myForm" onsubmit="start(event)">
+                <div>
+                    <label>Name</label>
+                    <input type="text" id="name" />
+                </div>
+                <div>
+                    <input type="submit" value="Submit" />
+                </div>
+            </form>
+            <div id="div_list">
+                <ul id="list">
+
+
+                </ul>
+            </div>
+        </div>
+        <div id="toprc">
+            <label for="">Number of tasks</label>
+            <h1 id="h1">
+                0
+            </h1>
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>
+
+<script>
+    //blueprint for all the tasks
+    function Task(n, s) {
+
+
+        this.name = n,
+            this.date = new Date().getDate(),
+            this.status = s;
+
+
+
+    }
+
+
+    //called when submit button is pressed
+    function start(e) {
+
+        e.preventDefault();
+
+        let tname = document.getElementById("name").value;
+        console.log(tname)
+
+        let task = new Task(tname, "false")
+        console.log('task:', task)
+
+
+
+        createRow(task, tname)
+
+
+
+    }
+
+    function createRow(task, tname) {
+
+        let ul = document.getElementById("list")
+
+        let li1 = document.createElement("li")
+        li1.innerHTML = task.name;
+
+
+        let li2 = document.createElement("li")
+        li2.innerHTML = task.date;
+
+
+        let li3 = document.createElement("li")
+        li3.innerHTML = task.status;
+
+
+        let done = document.createElement("button")
+        done.innerHTML = "Done"
+
+        done.onclick = function() {
+            di.style.background = "green"
+            li1.style.textDecoration = "line-through"
+        }
+
+        let br = document.createElement("br")
+
+        let h1 = document.getElementById("h1")
+        if (h1.innerHTML === "0") {
+            h1.innerHTML = 1;
+        } else {
+            let c = h1.innerHTML;
+            h1.innerHTML = Number(c) + 1;
+        }
+
+
+        let remove = document.createElement("button")
+        remove.innerHTML = "Remove"
+
+        remove.onclick = function() {
+            di.remove();
+            c = h1.innerHTML;
+            h1.innerHTML = Number(c) - 1;
+        }
+
+        let toggle_btn = document.createElement("button")
+        toggle_btn.innerHTML = "toggle"
+        toggle_btn.onclick = function() {
+            console.log("hi")
+            let x = Task.bind(task, tname, !task.status)
+            x()
+            li3.innerHTML = task.status
+
+        }
+
+
+
+        let di = document.createElement("div")
+        di.append(li1, li2, li3, toggle_btn, done, remove)
+        ul.append(di, br)
+        let div = document.getElementById("div_list")
+        div.append(ul)
+
+
+
+
+
+
+
+    }
+</script>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task</title>
+
+    <style>
+        form>div {
+            margin: 10px;
+        }
+        
+        td {
+            border: 1px solid gray;
+            min-height: 100px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="myForm" onsubmit="start(event)">
+        <div>
+            <label>Name</label>
+            <input type="text" id="name" />
+        </div>
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+    <div id="div_list">
+        <ul id="list">
+
+
+        </ul>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    //blueprint for all the tasks
+    function Task(n) {
+
+
+        this.name = n
+        this.date = new Date().getDate(),
+            this.status = false;
+
+
+
+    }
+
+
+    //called when submit button is pressed
+    function start(e) {
+
+        e.preventDefault();
+
+        let tname = document.getElementById("name").value;
+        console.log(tname)
+
+        let task = new Task(tname)
+        console.log('task:', task)
+
+
+        createRow(task.name, task.date, task.status)
+
+
+
+    }
+
+    function createRow(n, d, s) {
+
+        let ul = document.getElementById("list")
+
+        let li1 = document.createElement("li")
+        li1.innerHTML = n;
+
+
+        let li2 = document.createElement("li")
+        li2.innerHTML = d;
+
+
+        let li3 = document.createElement("li")
+        li3.innerHTML = s;
+
+
+        let br = document.createElement("br")
+
+
+        ul.append(li1, li2, li3, br)
+
+        let div = document.getElementById("div_list")
+        div.append(ul)
+
+
+
+
+
+
+
+    }
+</script>
