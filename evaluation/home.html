@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+        
+        #navigation {
+            z-index: 1;
+            position: fixed;
+            width: 100%;
+            background-color: black;
+            justify-content: space-around;
+            align-items: center;
+            display: flex;
+            height: 100px;
+            padding: 10px;
+        }
+        
+        #navigation>a {
+            list-style: none;
+            font-style: none;
+            font-size: 70px;
+        }
+        
+        #navigation #searchBox {
+            width: 40%;
+        }
+        
+        #navigation #searchBox input {
+            padding: 20px;
+            width: 70%;
+            color: black;
+        }
+        
+        #navigation #searchBox #btns {
+            padding: 30px;
+            width: 20%;
+            color: black;
+        }
+        
+        #navigation #searchBox #btns a {
+            color: black;
+            font-size: 15px;
+        }
+        
+        #headlines {
+            position: absolute;
+            top: 120px;
+            background-color: rgb(0, 162, 255);
+            width: 100%;
+            justify-content: center;
+            margin: auto;
+            padding: 20px;
+            display: inline-block;
+        }
+        
+        #headlines .articles {
+            display: flex;
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        
+        #headlines .imgContainer {
+            flex-basis: 30%;
+        }
+        
+        #headlines .exp {
+            flex-basis: 60%;
+        }
+        
+        #headlines .imgContainer img {
+            width: 80%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="navigation">
+        <a href="">Heading</a>
+        <div id="searchBox">
+            <input type="text" placeholder="search article" id="search">
+            <button id="btns" onclick="search()"><a href="search.html"> Submit</a></button>
+        </div>
+
+    </nav>
+
+    <div id="headlines">
+
+
+    </div>
+</body>
+
+</html>
+<script src="home.js"></script>
