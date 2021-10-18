@@ -18,9 +18,21 @@
             padding: 20px;
         }
         
-        #container div {
+        #container>div {
+            width: 100%;
             margin: auto;
             padding: 10px;
+            display: grid;
+            grid-template-columns: 25% 60%;
+            gap: 5%;
+        }
+        
+        #container>div .imgContainer {
+            width: 100%;
+        }
+        
+        #container>div .imgContainer img {
+            width: 100%;
         }
     </style>
 </head>

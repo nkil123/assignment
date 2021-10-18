@@ -6,11 +6,29 @@ display(names);
 
 function display(art) {
     for (var i = 0; i < art.length; i++) {
-        let div = document.createElement('div');
+        // let div = document.createElement('div');
 
-        let p = document.createElement('p');
-        p.innerHTML = art[i].title;
-        div.append(p);
+        let div = document.createElement('div');
+        div.className = 'articles';
+
+        let imageDiv = document.createElement('div');
+        imageDiv.className = 'imgContainer';
+
+        let img = document.createElement('img');
+        img.src = art[i].urlToImage;
+
+        imageDiv.append(img);
+
+        let exp = document.createElement('div');
+        exp.className = 'exp';
+
+        let author = document.createElement('h2');
+        author.innerHTML = art[i].author;
+        let title = document.createElement('h1');
+        title.innerHTML = art[i].title;
+
+        exp.append(title, author);
+        div.append(imageDiv, exp);
         container.append(div);
     }
 }
