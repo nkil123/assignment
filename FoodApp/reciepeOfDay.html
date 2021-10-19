@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/f001449fdc.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <link rel="stylesheet" href="/style/style.css">
+</head>
+
+<body>
+    <div id="navigation">
+
+    </div>
+
+    <div id="showRec">
+
+    </div>
+</body>
+
+</html>
+
+<script type="module">
+    let navigation = document.getElementById("navigation")
+
+    let rec = document.getElementById("showRec");
+
+
+    //www.themealdb.com/api/json/v1/1/random.php
+
+
+    let url = 'https://www.themealdb.com/api/json/v1/1/random.php'
+    import { search, navbar } from "./components/navbar.js";
+
+    import { searchRec, append } from "./scripts/show.js"
+
+
+
+    navigation.innerHTML = navbar()
+
+    let random = await searchRec(url, "meals");
+
+
+    function display(data) {
+        console.log(data)
+        let imgdiv = document.createElement("div")
+        imgdiv.className = "imgdiv"
+
+
+        let img = document.createElement("img")
+        img.src = data.strMealThumb
+        let div = document.createElement("div")
+        let b = document.createElement("b")
+        let a = document.createElement("a")
+        a.href = data.strYoutube;
+        a.innerHTML = 'Click here to watch Youtube tutorial'
+        imgdiv.append(img)
+        rec.append(imgdiv)
+
+        a.append(b)
+        div.append(a)
+        imgdiv.append(div)
+        for (var k in data) {
+
+            if (k === "strMealThumb" || k == "idMeal") {
+                continue;
+            }
+            if (data[k] === null || data[k] === "") {
+                continue;
+            }
+            let p = document.createElement("p")
+            p.innerText = `${k.slice(3)}----------->` + data[k];
+
+            rec.append(p)
+
+
+
+        }
+
+
+    }
+
+    display(random)
+    search(searchRec, append)
+</script>

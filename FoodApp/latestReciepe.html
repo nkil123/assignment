@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/f001449fdc.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <link rel="stylesheet" href="/style/style.css">
+</head>
+
+<body>
+    <div id="navigation">
+
+    </div>
+    <div id="container"></div>
+</body>
+
+</html>
+
+<script type="module">
+    let url = "https://www.themealdb.com/api/json/v1/1/categories.php"
+
+    import { search, navbar } from "./components/navbar.js";
+
+    import { searchRec, append } from "./scripts/show.js"
+
+    let navigation = document.getElementById("navigation")
+
+    navigation.innerHTML = navbar()
+
+    let lates = await searchRec(url, "categories");
+
+
+    function display(data) {
+
+        data.forEach((element) => {
+
+            let div = document.createElement("div");
+            let h1 = document.createElement("h1");
+
+            h1.innerText = element.strCategory;
+
+            let img = document.createElement("img");
+            img.src = element.strCategoryThumb;
+
+            let p = document.createElement("p")
+            p.innerText = element.strCategoryDescription;
+
+
+            div.append(img, h1, p);
+
+            container.append(div);
+
+
+
+
+        });
+
+    }
+
+    display(lates)
+    // console.log('random:', random)
+    search(searchRec, append)
+
+</script>
