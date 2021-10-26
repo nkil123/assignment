@@ -1,0 +1,27 @@
+body {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+}
+
+.selector {
+  padding: 10px;
+  font-size: 30px;
+}
+
+#left,
+#right {
+  height: 300px;
+  font-size: 30px;
+  width: 500px;
+}
+
+.btns {
+  padding: 10px;
+  font-size: 30px;
+}
+
+#select {
+  padding: 10px;
+}
