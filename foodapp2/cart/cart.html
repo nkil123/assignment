@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="navbar">
+      <div>
+        <h1 onclick="go()">Zomato</h1>
+      </div>
+      <div id="right">
+        <a href="/menu/menu.html">Menu</a>
+        <a href="/login/login.html">Login</a>
+        <a href="/signup/signup.html">Signup</a>
+      </div>
+    </div>
+
+    <div id="items"></div>
+  </body>
+</html>
+<script>
+  let data = JSON.parse(localStorage.getItem("cart"));
+
+  data.forEach((element) => {
+    let maindiv = document.createElement("div");
+    maindiv.className = "block";
+
+    let imgdiv = document.createElement("div");
+    imgdiv.className = "imgdiv";
+
+    let img = document.createElement("img");
+    img.src = element.strCategoryThumb;
+
+    imgdiv.append(img);
+
+    let bdiv = document.createElement("div");
+    bdiv.className = "bdiv";
+
+    let title = document.createElement("h2");
+    title.innerHTML = element.strCategory;
+
+    let des = document.createElement("p");
+    des.innerHTML = element.strCategoryDescription;
+
+    bdiv.append(title, des);
+
+    let cart = document.createElement("button");
+    cart.className = "cbtn";
+    cart.innerHTML = "Place Order Successfully";
+    cart.onclick = function () {
+      alert("Order placed");
+    };
+
+    maindiv.append(imgdiv, bdiv, cart);
+    items.append(maindiv);
+  });
+
+  function go() {
+    window.location.href = "/main/index.html";
+  }
+</script>

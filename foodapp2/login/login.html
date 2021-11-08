@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      #myForm {
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="" id="myForm" onsubmit="login(event)">
+      <label for="">Username</label>
+      <input type="text" id="uname" />
+      <label for="">Password</label>
+      <input type="password" id="password" />
+      <input type="submit" />
+    </form>
+  </body>
+</html>
+
+<script>
+  //abvk1718
+  //rcbnilesh
+  let form = document.getElementById("myForm");
+  function login(e) {
+    e.preventDefault();
+
+    let data = {
+      password: form.password.value,
+      username: form.uname.value,
+    };
+
+    let newdata = JSON.stringify(data);
+    console.log("newdata:", newdata);
+
+    fetch("https://masai-api-mocker.herokuapp.com/auth/login", {
+      method: "POST",
+      body: newdata,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((r) => {
+        console.log(r);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+</script>

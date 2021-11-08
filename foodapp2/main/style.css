@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: white;
+}
+
+#navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+  background-color: black;
+}
+#navbar #right {
+  display: flex;
+  text-decoration: none;
+}
+
+#navbar #right a {
+  text-decoration: none;
+  margin-left: 30px;
+  font-size: larger;
+  font-family: sans-serif;
+}

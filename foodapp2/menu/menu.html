@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="navbar">
+      <div>
+        <h1 onclick="go()">Zomato</h1>
+      </div>
+      <div id="right">
+        <a href="/menu/menu.html">Menu</menu></a>
+        <a href="/login/login.html">Login</a>
+        <a href="/signup/signup.html">Signup</a>
+        <a href="/cart/cart.html">Cart</a>
+      </div>
+    </div>
+    <div id="items"></div>
+  </body>
+</html>
+
+<script>
+  //https://www.themealdb.com/api/json/v1/1/categories.php
+
+  let items = document.getElementById("items");
+  var i = 0;
+  async function data() {
+    let res = await fetch(
+      "https://www.themealdb.com/api/json/v1/1/categories.php"
+    );
+    let data = await res.json();
+    console.log(data.categories[1]);
+    display(data.categories);
+  }
+  data();
+  function display(blocks) {
+    blocks.forEach((element) => {
+      let maindiv = document.createElement("div");
+      maindiv.className = "block";
+
+      let imgdiv = document.createElement("div");
+      imgdiv.className = "imgdiv";
+
+      let img = document.createElement("img");
+      img.src = element.strCategoryThumb;
+
+      imgdiv.append(img);
+
+      let bdiv = document.createElement("div");
+      bdiv.className = "bdiv";
+
+      let title = document.createElement("h2");
+      title.innerHTML = element.strCategory;
+
+      let des = document.createElement("p");
+      des.innerHTML = element.strCategoryDescription;
+
+      bdiv.append(title, des);
+
+      let cart = document.createElement("button");
+      cart.innerHTML = "Add to Cart";
+      cart.className = "cbtn";
+      cart.onclick = function () {
+        addtocart(element);
+      };
+
+      maindiv.append(imgdiv, bdiv, cart);
+      items.append(maindiv);
+    });
+  }
+
+  function addtocart(prod) {
+    // console.log(typeof prod);
+    if (localStorage.getItem("cart") === null) {
+      localStorage.setItem("cart", JSON.stringify([]));
+    }
+
+    let data = JSON.parse(localStorage.getItem("cart"));
+    data.push(prod);
+
+    localStorage.setItem("cart", JSON.stringify(data));
+  }
+
+
+
+
+
+
+  function go(){
+      window.location.href = "/main/index.html"
+  }
+</script>
