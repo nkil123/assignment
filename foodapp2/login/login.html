@@ -7,13 +7,66 @@
     <title>Document</title>
 
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        color: white;
+      }
+
+      #navbar {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        padding: 30px;
+        background-color: black;
+        z-index: 1;
+      }
+      #navbar #right {
+        display: flex;
+        text-decoration: none;
+      }
+
+      #navbar #right a {
+        text-decoration: none;
+        margin-left: 30px;
+        font-size: larger;
+        font-family: sans-serif;
+      }
       #myForm {
+        position: absolute;
+        top: 90px;
         width: 200px;
+      }
+      #myForm div h1 {
+        color: red;
+      }
+      #myForm input {
+        color: black;
+        font-weight: 700px;
+        padding: 5px;
       }
     </style>
   </head>
   <body>
+    <div id="navbar">
+      <div>
+        <h1>Zomato</h1>
+      </div>
+      <div id="right">
+        <a href="/menu/menu.html">Menu</a>
+        <a href="/login/login.html">Login</a>
+        <a href="/signup/signup.html">Signup</a>
+      </div>
+    </div>
+
     <form action="" id="myForm" onsubmit="login(event)">
+      <div>
+        <h1>Login</h1>
+      </div>
       <label for="">Username</label>
       <input type="text" id="uname" />
       <label for="">Password</label>
@@ -49,7 +102,8 @@
         return res.json();
       })
       .then((r) => {
-        console.log(r);
+        alert("logged in successfully");
+        window.location.href = "/main/index.html";
       })
       .catch((err) => {
         console.log(err);

@@ -50,9 +50,9 @@
 
     let cart = document.createElement("button");
     cart.className = "cbtn";
-    cart.innerHTML = "Place Order Successfully";
+    cart.innerHTML = "Place Order";
     cart.onclick = function () {
-      alert("Order placed");
+      chekon();
     };
 
     maindiv.append(imgdiv, bdiv, cart);
@@ -61,5 +61,24 @@
 
   function go() {
     window.location.href = "/main/index.html";
+  }
+
+  function chekon() {
+    alert("order is Accepted");
+    setTimeout(() => {
+      alert("Your order is being cooked");
+    }, 3000);
+
+    setTimeout(() => {
+      alert("Your order is ready");
+    }, 8000);
+
+    setTimeout(() => {
+      alert("Order out for delivery ");
+    }, 10000);
+
+    setTimeout(() => {
+      alert("Order delivered");
+    }, 12000);
   }
 </script>

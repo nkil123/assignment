@@ -7,13 +7,67 @@
     <title>Document</title>
 
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        color: white;
+      }
+
+      #navbar {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        padding: 30px;
+        background-color: black;
+        z-index: 1;
+      }
+      #navbar #right {
+        display: flex;
+        text-decoration: none;
+      }
+
+      #navbar #right a {
+        text-decoration: none;
+        margin-left: 30px;
+        font-size: larger;
+        font-family: sans-serif;
+      }
       #myForm {
+        position: absolute;
+        top: 100px;
         width: 200px;
+      }
+      #myForm div h1 {
+        color: red;
+      }
+      #myForm input,
+      #myForm label {
+        color: black;
+        font-weight: 700px;
+        padding: 5px;
       }
     </style>
   </head>
   <body>
+    <div id="navbar">
+      <div>
+        <h1>Zomato</h1>
+      </div>
+      <div id="right">
+        <a href="/menu/menu.html">Menu</a>
+        <a href="/login/login.html">Login</a>
+        <a href="/signup/signup.html">Signup</a>
+      </div>
+    </div>
+
     <form action="" id="myForm" onsubmit="signup(event)">
+      <div>
+        <h1>Signup</h1>
+      </div>
       <label for="">Name</label>
       <input type="text" id="name" />
       <label for="">Email</label>
